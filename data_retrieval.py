@@ -1,5 +1,3 @@
-# data_retrieval.py
-
 from imdb import IMDb
 import requests
 
@@ -48,14 +46,12 @@ def get_director(movie_name):
     else:
         return None
 
-# Function to get awards of a movie (dummy function for demonstration)
+# Function to get awards of a movie
 def get_awards(movie_name):
     movies = ia.search_movie(movie_name)
-    
     if movies:
         movie_id = movies[0].movieID
         movie = ia.get_movie(movie_id)
-        
         awards = movie.get('awards')
         if awards:
             return awards
@@ -63,11 +59,3 @@ def get_awards(movie_name):
             return "No awards information available."
     else:
         return "No movie found."
-
-# Function to get movie information
-def get_movie_info(movie_name):
-    summary = get_movie_summary(movie_name)
-    if summary:
-        return summary['extract']
-    else:
-        return None

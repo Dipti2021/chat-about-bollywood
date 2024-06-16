@@ -1,16 +1,8 @@
-# train_nlp_model.py
-
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 import joblib
 import re
-
-# Define preprocess function
-def preprocess(text):
-    text = text.lower()
-    text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
-    return text
 
 # Sample data for intents
 data = {
@@ -22,7 +14,9 @@ data = {
         "Who is the actor of PK?",
         "When was Dangal released?",
         "Who won the Best Actor award for 3 Idiots?",
-        "Who gave the music direction for PK?"
+        "Who gave the music direction for PK?",
+        "Who is the director of Dangal?",
+        "Tell me the awards won by 3 Idiots"
     ],
     'intent': [
         "get_movie_info",
@@ -32,11 +26,19 @@ data = {
         "get_actor_info",
         "get_release_year",
         "get_best_actor",
-        "get_music_direction"
+        "get_music_direction",
+        "get_director",
+        "get_awards"
     ]
 }
 
 # Preprocess the text data
+def preprocess(text):
+    text = text.lower()
+    text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
+    return text
+
+# Split data
 X = [preprocess(text) for text in data['text']]
 y = data['intent']
 
